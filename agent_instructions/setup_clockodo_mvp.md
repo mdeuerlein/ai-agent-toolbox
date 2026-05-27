@@ -30,9 +30,7 @@ If you cannot determine the location automatically, **stop here and ask the user
 
 ## Step 2 – Request the API key from the user
 
-Before writing any configuration, ask the user for their Clockodo API key with this exact message:
-
-> "To connect Clockodo, I need your personal Clockodo API key. Please retrieve it from **Clockodo → My Data → API** and store it in a secure location appropriate for this system — for example, an environment variable, a secrets manager, or your system's credential store. Do not paste it directly into the chat. Once it is stored, let me know the variable name or path so I can reference it in the configuration."
+Before writing any configuration, ask the user for their Clockodo API key. Explain that the key can be found in Clockodo under **My Data → API**, and ask them to store it in a secure location appropriate for their system (e.g. an environment variable, a secrets manager, or the system's credential store) rather than sharing it directly in the chat. Ask them to let you know the variable name or path once it is stored so you can reference it in the configuration.
 
 Wait for the user's response before continuing. Do not proceed with a placeholder key.
 
@@ -67,7 +65,7 @@ Replace `CLOCKODO_USER_EMAIL` with the user's Clockodo login email address and `
 After writing the config file:
 
 1. Confirm to the user that the configuration has been written and show the file path.
-2. If the runtime requires a restart to pick up new MCP servers, tell the user: *"Please restart [runtime name] for the Clockodo MCP server to become active."*
+2. If the runtime requires a restart to pick up new MCP servers, inform the user and tell them which runtime needs to be restarted.
 3. Once restarted (or immediately if no restart is needed), attempt a simple read-only call to the Clockodo MCP server — for example, fetching the current user's profile or listing available projects — to confirm the connection works.
 4. Report the result to the user: either confirm success and give a short example of what data is now accessible, or report the error and suggest a fix.
 
@@ -75,7 +73,7 @@ After writing the config file:
 
 ## Important notes
 
-- **Write access:** The Clockodo MCP server supports tools with the prefixes `create`, `update`, and `delete`. These can modify or delete data in the user's Clockodo account. Only enable these tools if the user has explicitly asked for write access. For read-only setups, restrict tool access to `get` and `list` prefixed tools only.
+- **Write access:** Before finalizing the configuration, ask the user whether write access should be enabled. Explain that the Clockodo MCP server supports write operations (creating, updating, and deleting time entries and other data), and ask whether they want this enabled or prefer read-only access for now. Enable `create`, `update`, and `delete` tools only if the user explicitly confirms. Otherwise restrict tool access to `get` and `list` prefixed tools only.
 - **Credentials:** Never log or display the API key in full after the initial setup. If you need to reference it in output, mask it (e.g. `sk-****`).
 - **MCP server URL:** `https://mcp.clockodo.com/mcp`
 - **Authentication method:** HTTP headers (`X-Clockodo-User` + `X-Clockodo-Key`). Basic Auth is also supported if the runtime requires it — refer to the Clockodo API documentation for the Basic Auth format.
