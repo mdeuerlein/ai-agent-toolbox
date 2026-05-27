@@ -19,7 +19,10 @@ Identify which agent runtime or MCP host is active in this environment. Common c
 | Claude Desktop | `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows) |
 | Cursor / VS Code (Cline, Continue, etc.) | `.cursor/mcp.json` or `.vscode/mcp.json` in the workspace root, or the global settings file of the respective extension |
 | OpenClaw / Hermes Agent | Check the agent's own documentation or config directory for the MCP server configuration file |
+| OpenAI Codex | `~/.codex/config.json` or the `mcpServers` block in the project-level `codex.yaml` / `codex.json` if present |
 | Other | Look for any existing `mcp.json`, `mcp_servers.json`, or `mcpServers` block in the agent's config |
+
+> **Note:** If the information in this table conflicts with the agent's own local settings, documentation, or built-in defaults, the agent's local configuration takes precedence over this table.
 
 If you cannot determine the location automatically, **stop here and ask the user** where their MCP configuration file is located.
 
